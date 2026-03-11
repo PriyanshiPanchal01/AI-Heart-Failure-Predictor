@@ -1,0 +1,1 @@
+web: gunicorn heart_project.wsgi
