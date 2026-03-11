@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Heart Failure Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; }
+        .card { border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .header-title { color: #2c3e50; font-weight: bold; }
+        .result-box { font-size: 1.2rem; font-weight: bold; padding: 15px; border-radius: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4">
+                <h2 class="text-center header-title mb-4">🩺 AI Heart Failure Risk Predictor</h2>
+                
+                {% if result %}
+                    <div class="alert {% if 'High' in result %}alert-danger{% else %}alert-success{% endif %} result-box mb-4">
+                        {{ result }}
+                    </div>
+                    <div class="text-center mb-4">
+                        <a href="/" class="btn btn-secondary">Check Another Patient</a>
+                    </div>
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Age</label>
+                            <input type="number" class="form-control" name="age" required placeholder="e.g. 60">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Anaemia (0=No, 1=Yes)</label>
+                            <select class="form-select" name="anaemia">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Creatinine Phosphokinase (mcg/L)</label>
+                            <input type="number" class="form-control" name="creatinine_phosphokinase" required placeholder="e.g. 250">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Diabetes (0=No, 1=Yes)</label>
+                            <select class="form-select" name="diabetes">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Ejection Fraction (%)</label>
+                            <input type="number" class="form-control" name="ejection_fraction" required placeholder="e.g. 38">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">High Blood Pressure (0=No, 1=Yes)</label>
+                            <select class="form-select" name="high_blood_pressure">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Platelets (kiloplatelets/mL)</label>
+                            <input type="number" class="form-control" name="platelets" required placeholder="e.g. 263000">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Serum Creatinine (mg/dL)</label>
+                            <input type="number" step="0.01" class="form-control" name="serum_creatinine" required placeholder="e.g. 1.9">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Serum Sodium (mEq/L)</label>
+                            <input type="number" class="form-control" name="serum_sodium" required placeholder="e.g. 136">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Sex (0=Female, 1=Male)</label>
+                            <select class="form-select" name="sex">
+                                <option value="0">Female</option>
+                                <option value="1">Male</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Smoking (0=No, 1=Yes)</label>
+                            <select class="form-select" name="smoking">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Follow-up Time (Days)</label>
+                            <input type="number" class="form-control" name="time" required placeholder="e.g. 130">
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Predict Heart Failure Risk</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
